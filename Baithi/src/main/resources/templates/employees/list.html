@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+
+    <title>Employees</title>
+
+</head>
+<body>
+<form action="/search" method="get">
+    <input type="text" name="search">
+    <input type="submit" value="Search">
+</form>
+<br>
+<button>
+    <a href="/create-employee">Create</a>
+</button>
+<h1>Employees List</h1>
+There are <span th:text="${employees.totalElements}"></span> employees(s).
+<table border="1">
+    <tr>
+        <th>Mã nhân viên</th>
+        <th>Nhóm nhân viên</th>
+        <th>Họ tên</th>
+        <th>Giới tính</th>
+        <th>Số điện thoại</th>
+        <th>Chức năng</th>
+    </tr>
+    <th:block th:each="employee : ${employees}">
+        <tr>
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.office.name}"></td>
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.gender}"></td>
+            <td th:text="${employee.phone}"></td>
+            <td>
+                <a th:href="@{/edit-employee/__${employee.id}__ }">Edit</a>
+                <a th:href="@{/delete-employee/__${employee.id}__ }">Delete</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/employees'(page=${employees.number - 1})}" th:if="${employees.hasPrevious()}">Previous</a>
+    <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
+    <a th:href="@{'/employees'(page=${employees.number + 1})}" th:if="${employees.hasNext()}">Next</a>
+</div>
+</body>
+</html>

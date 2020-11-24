@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Employee</title>
+</head>
+<body>
+<h1>Delete Employee</h1>
+<h2>Are you sure?</h2>
+<p>
+    <a href="/employees">Employees list</a>
+</p>
+<form th:action="@{/delete-employee}" th:object="${employee}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table border="1">
+        <tr>
+            <td>Họ tên:</td>
+            <td th:text="${employee.name}"></td>
+        </tr>
+        <tr>
+            <td>Giới tính:</td>
+            <td th:text="${employee.gender}"></td>
+        </tr>
+        <tr>
+            <td>Office:</td>
+            <td th:text="${employee.office.name}"></td>
+        </tr>
+        <tr>
+            <td>Ngày sinh:</td>
+            <td th:text="${employee.dob}"></td>
+        </tr>
+        <tr>
+            <td>Số điện thoại:</td>
+            <td th:text="${employee.phone}"></td>
+        </tr>
+        <tr>
+            <td>Chứng minh nhân dân:</td>
+            <td th:text="${employee.cmnd}"></td>
+        </tr>
+
+        <tr>
+            <td>Địa chỉ:</td>
+            <td th:text="${employee.address}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Delete"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

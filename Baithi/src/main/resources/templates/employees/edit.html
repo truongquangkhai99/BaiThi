@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Employee</title>
+</head>
+<body>
+<h1>Edit Employee</h1>
+<p>
+    <a href="/employees">Employee list</a>
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/update-employee}" th:object="${employee}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table border="1">
+        <tr>
+            <td>Họ tên:</td>
+            <td><input type="text" th:field="*{name}" required th:min="2" th:max="40"/></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Giới tính:</td>
+            <td>
+                <input type="radio" name="gender">Nam
+                <input type="radio" name="gender">Nữ
+            </td>
+        </tr>
+        <tr>
+            <td>Nhóm nhân viên:</td>
+            <td>
+                <select th:field="*{office}">
+                    <option th:each="o:${offices}" th:value="${o.id}" th:if="${employee.office.name==o.name}" th:text="${o.name}" selected></option>
+                    <option th:each="o:${offices}" th:value="${o.id}" th:text="${o.name}" th:if="${employee.office.name!=o.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Ngày sinh:</td>
+            <td><input type="date" th:field="*{dob}" required/></td>
+        </tr>
+        <tr>
+            <td>Số điện thoại:</td>
+            <td><input type="text" th:field="*{phone}" required th:min="10" th:max="11"/></td>
+            <td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</td>
+        </tr>
+        <tr>
+            <td>Số chứng minh:</td>
+            <td><input type="text" th:field="*{cmnd}" required /></td>
+            <td th:if="${#fields.hasErrors('cmnd')}" th:errors="*{cmnd}">CMND Error</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" th:field="*{email}" required/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>
+                <textarea th:field="*{address}" required></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
