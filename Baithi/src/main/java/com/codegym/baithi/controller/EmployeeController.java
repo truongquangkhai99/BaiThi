@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.Principal;
+
 
 @Controller
+@RequestMapping("/")
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
     @Autowired
     OfficeService officeService;
 
-    @GetMapping("/employees")
+    @GetMapping("/")
     public ModelAndView listPerson(Pageable pageable){
         Page<Employee> employees= employeeService.findAll(pageable);
         ModelAndView modelAndView=new ModelAndView("employees/list");
@@ -42,7 +43,7 @@ public class EmployeeController {
     @PostMapping("/delete-employee")
     public String deleteEmployee(@RequestParam long id){
         employeeService.delete(id);
-        return "redirect:/employees";
+        return "redirect:/";
     }
 
     @GetMapping("/create-employee")
