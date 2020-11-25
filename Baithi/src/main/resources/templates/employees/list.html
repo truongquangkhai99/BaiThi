@@ -7,17 +7,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>List telivisions</title>
+    <title>List Employees</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
-<body>
+<body style="background-color: gainsboro">
 <div class="container" id="container">
-    <h1>Employees List</h1>
+    <h1 style="display: block;justify-content: center;text-align: center; color: blue">Employees List</h1>
+    <br>
     <form action="/search" method="get">
-        <input type="text" name="search">
-        <input type="submit" value="Search">
+        <div style="display: flex; float: right">
+            <div><input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" style="width: 300px"></div>
+            <div><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
+        </div>
     </form>
     <br>
     <button class="btn btn-primary">
@@ -41,19 +45,18 @@
                 <td th:text="${employee.name}"></td>
                 <td th:text="${employee.gender}"></td>
                 <td th:text="${employee.phone}"></td>
-                <td>
-                    <a th:href="@{/edit-employee/__${employee.id}__ }">Edit</a>
-                    <a th:href="@{/delete-employee/__${employee.id}__ }">Delete</a>
+                <td style="text-align: center;justify-content:center">
+                    <a th:href="@{/edit-employee/__${employee.id}__ }" ><i class="fas fa-edit"></i></a>
+                    <a th:href="@{/delete-employee/__${employee.id}__ }" style="color: red"><i class="fas fa-trash-alt"></i></a>
                 </td>
             </tr>
         </th:block>
     </table>
-    <div>
+    <div style="float: right">
         <a th:href="@{'/employees'(page=${employees.number - 1})}" th:if="${employees.hasPrevious()}">Previous</a>
         <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
         <a th:href="@{'/employees'(page=${employees.number + 1})}" th:if="${employees.hasNext()}">Next</a>
     </div>
 </div>
-
 </body>
 </html>

@@ -4,90 +4,102 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Delete Employee</title>
+    <style>
+        .mau{
+            color: black;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
-<h1>Delete Employee</h1>
-<h2>Are you sure?</h2>
-<button class="btn btn-primary" >
-    <a href="/employees" style="color: black">Employees list</a>
-</button>
+<body style="background-color: gainsboro">
+<div class="container" id="container">
+<h1 style="display: block;color: blue;">Delete Employee</h1>
+<h2 style="color: red">Are you sure?</h2>
 <br>
 <br>
-<div class="col-lg-4">
+<div class="col-lg-10">
     <div class="card" style="border: 1px solid black">
         <div class=" card-body card-block ">
             <form th:action="@{/delete-employee}" th:object="${employee}" method="post" class="form-horizontal ">
                 <div class="row form-group ">
                     <input th:type="hidden" name="id" th:field="*{id}">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Họ tên:</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau">Họ tên:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text"  th:value="${employee.name}" disabled=" " class="form-control ">
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Giới tính:</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau">Giới tính:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text" th:value="${employee.gender}" disabled=" " class="form-control ">
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Nhóm nhân viên:</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau">Nhóm nhân viên:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text" th:value="${employee.office.name}" disabled=" " class="form-control ">
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Ngày sinh:</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau">Ngày sinh:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text"  th:value="${employee.dob}" disabled=" " class="form-control ">
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label  class=" form-control-label ">Số điện thoại:</label>
+                    <div class="col col-md-4 ">
+                        <label  class=" form-control-label mau">Số điện thoại:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text"  th:value="${employee.phone}" disabled=" "  class="form-control ">
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label  class=" form-control-label ">Chứng minh nhân dân:</label>
+                    <div class="col col-md-4 ">
+                        <label  class=" form-control-label mau">Chứng minh nhân dân:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text" th:value="${employee.cmnd}" disabled=" " class="form-control ">
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label  class=" form-control-label ">Email:</label>
+                    <div class="col col-md-4 ">
+                        <label  class=" form-control-label mau">Email:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text" th:value="${employee.email}" disabled=" "  class="form-control ">
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Address</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau">Address</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <textarea th:text="${employee.address}" disabled=" " class="form-control "></textarea>
                     </div>
                 </div>
-                <td><input class="btn btn-primary" type="submit" value="Delete"></td>
+                <div style="float: right">
+                    <td><input class="btn btn-primary" type="submit" value="Delete"></td>
+                    <button class="btn btn-primary">
+                        <a href="/employees" style="color: white;">Back list</i></a>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

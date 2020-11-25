@@ -65,7 +65,7 @@ public class EmployeeController {
         }
         employee= employeeService.save(employee);
         modelAndView.addObject("employee",new Employee());
-        modelAndView.addObject("message","Created employee");
+        modelAndView.addObject("message","Created employee!!");
         return modelAndView;
     }
 
@@ -89,7 +89,7 @@ public class EmployeeController {
         }
         employee= employeeService.save(employee);
         modelAndView.addObject("employee",employee);
-        modelAndView.addObject("message","Updated employee");
+        modelAndView.addObject("message","Updated employee!!");
         return modelAndView;
     }
 

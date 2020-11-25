@@ -5,103 +5,115 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Edit Employee</title>
+    <style>
+        .mau{
+            color:black;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
-<h1>Edit Employee</h1>
+<body style="background-color: gainsboro">
+<div class="container" id="container">
+<h1 style="color: blue">Edit Employee</h1>
 <th:block th:if="${message}">
-    <p th:text="${message}"></p>
+    <h5 th:text="${message}" style="color: red"></h5>
 </th:block>
-<button class="btn btn-primary" >
-    <a href="/employees" style="color: black">Employees list</a>
-</button>
 <br>
 <br>
-<div class="col-lg-4">
+<div class="col-lg-10">
     <div class="card" style="border: 1px solid black">
         <div class=" card-body card-block ">
             <form th:action="@{/update-employee}" th:object="${employee}" method="post" class="form-horizontal ">
                 <div class="row form-group ">
                     <input th:type="hidden" name="id" th:field="*{id}">
-                    <div class="col col-md-3 ">
-                        <label for="text-input " class=" form-control-label ">Họ tên:</label>
+                    <div class="col col-md-4 ">
+                        <label for="text-input " class=" form-control-label mau ">Họ tên:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text"  th:field="*{name}" required th:min="2" th:max="40" class="form-control ">
-                        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
+                        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Name Error</small>
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Giới tính:</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau ">Giới tính:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="radio" name="gender" value="Nam" th:if="${employee.gender=='Nam'}" checked>
                         <input type="radio" name="gender" value="Nam" th:if="${employee.gender!='Nam'}">Nam
+
                         <input type="radio" name="gender" value="Nữ" th:if="${employee.gender=='Nữ'}" checked>
                         <input type="radio" name="gender" value="Nữ" th:if="${employee.gender!='Nữ'}">Nữ
-                        <small th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Name Error</small>
+                        <small th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" style="color: red">Name Error</small>
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Nhóm nhân viên:</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau ">Nhóm nhân viên:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
-                        <select th:field="*{office}">
-                            <option th:each="o: ${offices}" th:value="${o.id}" th:text="${o.name}"></option>
+                    <div class="col-12 col-md-8 ">
+                        <select th:field="*{office}" class="form-control ">
+                            <option th:each="o: ${offices}" th:value="${o.id}" th:text="${o.name}" ></option>
                         </select>
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Ngày sinh:</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau ">Ngày sinh:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8">
                         <input type="date"  th:field="*{dob}" required class="form-control ">
-                        <small th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">Date Error</small>
+                        <small th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}" style="color: red">Date Error</small>
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label  class=" form-control-label ">Số điện thoại:</label>
+                    <div class="col col-md-4 ">
+                        <label  class=" form-control-label mau ">Số điện thoại:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text"  th:field="*{phone}" required th:min="10" th:max="11" class="form-control ">
-                        <small th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</small>
+                        <small th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red">Phone Error</small>
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label  class=" form-control-label ">Chứng minh nhân dân:</label>
+                    <div class="col col-md-4 ">
+                        <label  class=" form-control-label mau ">Chứng minh nhân dân:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8">
                         <input type="text" th:field="*{cmnd}" required class="form-control ">
-                        <small th:if="${#fields.hasErrors('cmnd')}" th:errors="*{cmnd}">CMND Error</small>
+                        <small th:if="${#fields.hasErrors('cmnd')}" th:errors="*{cmnd}" style="color: red">CMND Error</small>
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label  class=" form-control-label ">Email:</label>
+                    <div class="col col-md-4 ">
+                        <label  class=" form-control-label mau ">Email:</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <input type="text" id="text-input " th:field="*{email}" required class="form-control ">
-                        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
+                        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red">Email Error</small>
                     </div>
                 </div>
                 <div class="row form-group ">
-                    <div class="col col-md-3 ">
-                        <label class=" form-control-label ">Address</label>
+                    <div class="col col-md-4 ">
+                        <label class=" form-control-label mau ">Address</label>
                     </div>
-                    <div class="col-12 col-md-9 ">
+                    <div class="col-12 col-md-8 ">
                         <textarea th:field="*{address}" required class="form-control "></textarea>
-                        <small th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</small>
+                        <small th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red">Address Error</small>
                     </div>
                 </div>
-                <td><input class="btn btn-primary" type="submit" value="Save"></td>
+                <div style="float: right">
+                    <td><input class="btn btn-primary" type="submit" value="Save"></td>
+                    <button class="btn btn-primary">
+                        <a href="/employees" style="color: white;">Back list</i></a>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
