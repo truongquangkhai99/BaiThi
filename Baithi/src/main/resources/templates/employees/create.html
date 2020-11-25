@@ -3,70 +3,104 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Create Person</title>
 </head>
 <body>
 <h1>Create Employee</h1>
-<p>
-    <a href="/employees">Employees list</a>
-</p>
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
-<form th:action="@{/create-employee}" th:object="${employee}" method="post">
-    <table border="1">
-        <tr>
-            <td>Họ tên:</td>
-            <td><input type="text" th:field="*{name}" required th:min="2" th:max="40"/></td>
-            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
-        </tr>
-        <tr>
-            <td>Giới tính:</td>
-            <td>
-                <input type="radio" th:field="*{gender}" value="Nam">Nam
-                <input type="radio" th:field="*{gender}" value="Nữ">Nữ
-                <td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Name Error</td>
-            </td>
-        </tr>
-        <tr>
-            <td>Nhóm nhân viên:</td>
-            <td>
-                <select th:field="*{office}">
-                    <option th:each="o: ${offices}" th:value="${o.id}" th:text="${o.name}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Ngày sinh:</td>
-            <td><input type="date" th:field="*{dob}" required/></td>
-            <td th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">Date Error</td>
-        </tr>
-        <tr>
-            <td>Số điện thoại:</td>
-            <td><input type="text" th:field="*{phone}" required th:min="10" th:max="11"/></td>
-            <td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</td>
-        </tr>
-        <tr>
-            <td>Số chứng minh:</td>
-            <td><input type="text" th:field="*{cmnd}" required /></td>
-            <td th:if="${#fields.hasErrors('cmnd')}" th:errors="*{cmnd}">CMND Error</td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" th:field="*{email}" required/></td>
-            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</td>
-        </tr>
-        <tr>
-            <td>Address:</td>
-            <td>
-                <textarea th:field="*{address}" required></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Create"></td>
-        </tr>
-    </table>
+<button class="btn btn-primary" >
+    <a href="/employees" style="color: black">Employees list</a>
+</button>
+<br>
+<br>
+<div class="col-lg-4">
+    <div class="card" style="border: 1px solid black">
+        <div class=" card-body card-block ">
+            <form th:action="@{/create-employee}" th:object="${employee}" method="post" class="form-horizontal ">
+                <div class="row form-group ">
+                    <div class="col col-md-3 ">
+                        <label for="text-input " class=" form-control-label ">Họ tên:</label>
+                    </div>
+                    <div class="col-12 col-md-9 ">
+                        <input type="text"  th:field="*{name}" required th:min="2" th:max="40" class="form-control ">
+                        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
+                    </div>
+                </div>
+                <div class="row form-group ">
+                    <div class="col col-md-3 ">
+                        <label class=" form-control-label ">Giới tính:</label>
+                    </div>
+                    <div class="col-12 col-md-9 ">
+                        <input type="radio"  th:field="*{gender}" value="Nam">Nam
+                        <input type="radio" th:field="*{gender}" value="Nữ">Nữ
+                        <small th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Name Error</small>
+                    </div>
+                </div>
+                <div class="row form-group ">
+                    <div class="col col-md-3 ">
+                        <label class=" form-control-label ">Nhóm nhân viên:</label>
+                    </div>
+                    <div class="col-12 col-md-9 ">
+                        <select th:field="*{office}">
+                            <option th:each="o: ${offices}" th:value="${o.id}" th:text="${o.name}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group ">
+                    <div class="col col-md-3 ">
+                        <label class=" form-control-label ">Ngày sinh:</label>
+                    </div>
+                    <div class="col-12 col-md-9 ">
+                        <input type="date"  th:field="*{dob}" required class="form-control ">
+                        <small th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">Date Error</small>
+                    </div>
+                </div>
+                <div class="row form-group ">
+                    <div class="col col-md-3 ">
+                        <label  class=" form-control-label ">Số điện thoại:</label>
+                    </div>
+                    <div class="col-12 col-md-9 ">
+                        <input type="text"  th:field="*{phone}" required th:min="10" th:max="11" class="form-control ">
+                        <small th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</small>
+                    </div>
+                </div>
+                <div class="row form-group ">
+                    <div class="col col-md-3 ">
+                        <label  class=" form-control-label ">Chứng minh nhân dân:</label>
+                    </div>
+                    <div class="col-12 col-md-9 ">
+                        <input type="text" th:field="*{cmnd}" required class="form-control ">
+                        <small th:if="${#fields.hasErrors('cmnd')}" th:errors="*{cmnd}">CMND Error</small>
+                    </div>
+                </div>
+                <div class="row form-group ">
+                    <div class="col col-md-3 ">
+                        <label  class=" form-control-label ">Email:</label>
+                    </div>
+                    <div class="col-12 col-md-9 ">
+                        <input type="text" id="text-input " th:field="*{email}" required class="form-control ">
+                        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
+                    </div>
+                </div>
+                <div class="row form-group ">
+                    <div class="col col-md-3 ">
+                        <label class=" form-control-label ">Address</label>
+                    </div>
+                    <div class="col-12 col-md-9 ">
+                        <textarea th:field="*{address}" required class="form-control "></textarea>
+                        <small th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</small>
+                    </div>
+                </div>
+                <td><input class="btn btn-primary" type="submit" value="Save"></td>
+            </form>
+        </div>
+    </div>
+</div>
 </form>
 </body>
 </html>
