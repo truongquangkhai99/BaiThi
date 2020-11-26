@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>List Blogs</title>
+    <title>List Employee</title>
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
@@ -51,11 +51,11 @@
 </head>
 <body style="background-image: url('https://cdn.pixabay.com/photo/2019/03/15/14/31/blue-butterfly-background-4057187_960_720.jpg');background-repeat: no-repeat;background-size:cover">
 <div class="container">
-    <h1>Blogs list</h1>
+    <h1>Employee list</h1>
     <div class="row">
         <div class="col-6">
             <button type="button" class="btn btn-primary" onclick="employees.addNew()">
-                Create new blog
+                Create new employee
             </button>
         </div>
     </div>
@@ -358,16 +358,16 @@
                     contentType: "application/json",
                     data: JSON.stringify(employeeObj),
                     done: function () {
-                        console.log("BLOG DONE");
+                        console.log("EMPLOYEE DONE");
                         $('#modalAddEdit').modal('hide');
                         $("#blogs-datatables").DataTable().ajax.reload();
                     },
                     success: function (data) {
                         if(data.code === 2){
-                            console.log("BLOG success");
+                            console.log("EMPLOYEE success");
                             $('#modalAddEdit').modal('hide');
                             $("#blogs-datatables").DataTable().ajax.reload();
-                            toastr.info('Blog has been created successfully', 'INFORMATION:')
+                            toastr.info('Employee has been created successfully', 'INFORMATION:')
                         }else {
                             data.stringListMessage.map(e =>toastr.error(e))
                         }
@@ -396,7 +396,7 @@
                         if(data.code === 2){
                             $('#modalAddEdit').modal('hide');
                             $("#blogs-datatables").DataTable().ajax.reload();
-                            toastr.info('Blog has been updated successfully', 'INFORMATION:')
+                            toastr.info('Employee has been updated successfully', 'INFORMATION:')
                         }else {
                             data.stringListMessage.map(e =>toastr.error(e));
                         }
