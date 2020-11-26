@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>List Blogs</title>
+    <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
+            integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+            integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <!-- include summernote css/js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
+            integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+            integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" />
+    <style>
+        .error {
+            color: red;
+        }
+        .select2-container--default .select2-search--inline .select2-search__field {
+            width: 20.75em !important;
+        }
+    </style>
+</head>
+<body style="background-image: url('https://cdn.pixabay.com/photo/2019/03/15/14/31/blue-butterfly-background-4057187_960_720.jpg');background-repeat: no-repeat;background-size:cover">
+<div class="container">
+    <h1>Blogs list</h1>
+    <div class="row">
+        <div class="col-6">
+            <button type="button" class="btn btn-primary" onclick="employees.addNew()">
+                Create new blog
+            </button>
+        </div>
+    </div>
+
+    <!-- Button to Open the Modal -->
+
+
+    <!-- The Modal -->
+    <div class="modal" id="modalAddEdit" name="modalAddEdit">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalTitle"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="formAddEdit" th:name="formAddEdit">
+                        <input type="hidden" name="blog_id" id="id" value="" >
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="text"
+                                       name="name" id="name"
+                                       data-rule-required=true>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>DOB</label>
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="date"
+                                       name="dob" id="dob"
+                                       data-rule-required=true required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Gender</label>
+                            </div>
+                            <div class="col-9">
+                                <select class="from-control" style="width: 100%" id="gender" required>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="LGBT">LGBT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Phone</label>
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="text"
+                                       name="phone" id="phone"
+                                       data-rule-required=true>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>CMND</label>
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="text"
+                                       name="cmnd" id="cmnd"
+                                       data-rule-required=true>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="email"
+                                       name="email" id="email"
+                                       data-rule-required=true >
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Address</label>
+                            </div>
+                            <div class="col-9" id="tera">
+                                <textarea class="form-control" name="address" id="address" data-rule-required=true required></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Office</label>
+                            </div>
+                            <div class="col-9" >
+                                <select class="form-control tag" name="office" id="office" style="width: 100%">
+
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a href="javascript:" class="btn btn-primary" onclick="employees.save()">Save</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="employees.resetForm()">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--    Model End-->
+
+    <table id="blogs-datatables" name="blogs-datatables" class="table table-dark table-bordered">
+
+    </table>
+</div>
+</body>
+<!-- include summernote css/js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script>
+    var employees = {} || employees;
+    var officeData = [];
+    var offices = {} || offices;
+    // function
+    employees.intTable = function () {
+        $("#blogs-datatables").DataTable({
+            ajax: {
+                url: 'http://localhost:8080/api/employees/',
+                method: "GET",
+                datatype: "json",
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    data: "id", name: "ID", title: "ID", orderable: true
+                },
+                {
+                    data: "name", name: "Name", title: "Name", orderable: true,
+                },
+                {
+                    data: "dob", name: "DOB", title: "DOB", sortable: false,
+                    orderable: false,
+                },
+                {
+                    data: "gender", name: "Gender", title: "Gender", sortable: false,
+                    orderable: false
+                },
+                {
+                    data: "phone", name: "Phone", title: "Phone", sortable: false,
+                    orderable: false
+                },
+                {
+                    data: "cmnd", name: "CMND", title: "CMND", sortable: false,
+                    orderable: false
+                },
+                {
+                    data: "email", name: "Email", title: "Email", sortable: false,
+                    orderable: false
+                },
+                {
+                    data: "address", name: "Address", title: "Address", sortable: false,
+                    orderable: false
+                },
+                {
+                    data: "office.name", name: "Office", title: "Office",sortable: false,
+                    orderable: false
+                },
+                {
+                    data: "id", name: "Action", title: "Action", sortable: false,
+                    orderable: false, "render": function (data) {
+                        var str = "<div style='justify-content: center;text-align: center'><a href='javascript:' title='Edit employee' onclick='employees.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" class='btn btn-warning fas fa-edit'></a> " +
+                            "<a href='javascript:' title='Remove employee' onclick='employees.delete(" + data + ")' class='btn btn-danger'><i class=\"fas fa-trash-alt\"></a></div>"
+                        return str;
+                    }
+                }
+            ]
+        });
+    };
+
+    offices.initTags = function () {
+        $.ajax({
+            url: "http://localhost:8080/api/offices/",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                officeData = data;
+                $('#office').empty();
+                $.each(data, function (i, v) {
+                    $('#office').append(
+                        `<option class="form-control" value='${ v.id }'>${v.name}</option>`
+                    );
+                });
+            }
+        });
+    };
+
+    offices.findById = function (id) {
+        return officeData.filter(e => {
+            return e.id === id
+        })[0]
+    }
+
+    employees.get = function (id) {
+        $.ajax({
+            url: "http://localhost:8080/api/employee/" + id,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                $('#formAddEdit')[0].reset();
+                $('#modalTitle').html("Edit employee");
+                $('#id').val(data.id);
+                $('#dob').val(data.dob);
+                $('#gender').val(data.gender);
+                $('#name').val(data.name);
+                $('#email').val(data.email);
+                $('#phone').val( data.phone );
+                $("#cmnd").val( data.cmnd );
+                $('#address').val(data.address);
+                $('#office').val(data.office.id);
+                $('#modalAddEdit').modal('show');
+            }
+        });
+    };
+
+    employees.delete = function (id) {
+        bootbox.confirm({
+            message: "Do you want to delete this employee",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "http://localhost:8080/api/employee/" + id,
+                        method: "DELETE",
+                        dataType: "json",
+                        success: function () {
+                            console.log("DELETE SUCCESS");
+                            $("#blogs-datatables").DataTable().ajax.reload();
+                            toastr.info('Employee has been deleted successfully', 'INFORMATION:')
+                        },
+                        error:function (jqXHR,exception){
+                            toastr.error('Error!! Employee not has been delete', 'INFORMATION:')
+                        }
+                    });
+                }
+            }
+        });
+    };
+
+    employees.addNew = function () {
+        $('#modalTitle').html("Add new employee");
+        employees.resetForm();
+        $('#modalAddEdit').modal('show');
+    };
+
+    employees.resetForm = function () {
+        $('#id').val(0);
+        $('#name').val('');
+        $('#dob').val('');
+        $('#gender').val($("#gender option:first").val());
+        $('#phone').val('');
+        $('#cmnd').val('');
+        $('#email').val('');
+        $('#address').val('');
+        $('#office').val($("#office option:first").val());
+    }
+
+    employees.save = function () {
+        if ($("#formAddEdit").valid()) {
+            if ($('#blog_id').val() == 0) {
+                var employeeObj = {};
+                employeeObj.name = $('#name').val();
+                employeeObj.dob = $('#dob').val();
+                employeeObj.gender = $('#gender').val();
+                employeeObj.phone = $('#phone').val();
+                employeeObj.cmnd = $('#cmnd').val();
+                employeeObj.email = $('#email').val();
+                employeeObj.address = $('#address').val();
+                employeeObj.office = offices.findById(parseInt($('#office').val()));
+                //
+                console.log(employeeObj);
+                $.ajax({
+                    url: "http://localhost:8080/api/employee/",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(employeeObj),
+                    done: function () {
+                        console.log("BLOG DONE");
+                        $('#modalAddEdit').modal('hide');
+                        $("#blogs-datatables").DataTable().ajax.reload();
+                    },
+                    success: function (data) {
+                        if(data.code === 2){
+                            console.log("BLOG success");
+                            $('#modalAddEdit').modal('hide');
+                            $("#blogs-datatables").DataTable().ajax.reload();
+                            toastr.info('Blog has been created successfully', 'INFORMATION:')
+                        }else {
+                            data.stringListMessage.map(e =>toastr.error(e))
+                        }
+                    }
+                });
+            } else {
+                var employeeObj = {};
+                employeeObj.id = $('#id').val();
+                employeeObj.name = $('#name').val();
+                employeeObj.dob = $('#dob').val();
+                employeeObj.gender = $('#gender').val();
+                employeeObj.phone = $('#phone').val();
+                employeeObj.cmnd = $('#cmnd').val();
+                employeeObj.email = $('#email').val();
+                employeeObj.address = $('#address').val();
+                employeeObj.office = offices.findById(parseInt($('#office').val()));
+                console.log(employeeObj);
+                //
+                $.ajax({
+                    url: "http://localhost:8080/api/employee/",
+                    method: "PUT",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(employeeObj),
+                    success: function (data) {
+                        if(data.code === 2){
+                            $('#modalAddEdit').modal('hide');
+                            $("#blogs-datatables").DataTable().ajax.reload();
+                            toastr.info('Blog has been updated successfully', 'INFORMATION:')
+                        }else {
+                            data.stringListMessage.map(e =>toastr.error(e));
+                        }
+                    }
+                });
+            }
+        }
+        return false;
+    }
+
+    $(document).ready(function () {
+        employees.intTable();
+        offices.initTags();
+        $('#formDemo').validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 30,
+                },
+                office: "required",
+                dob: "required",
+                gender: "required",
+                phone: {
+                    required: true,
+                },
+                cmnd:{
+                    required: true,
+                    minlength: 9,
+                    maxlength: 9,
+                },
+                email: {
+                    required: true,
+                },
+                address: "required",
+            },
+            messages: {
+                name: "Please input your name!!!",
+                office: "Please select your group!!!",
+                dob: "Please select your DOB!!!",
+                gender: "Please select your gender!!!",
+                phone: "Please input your mobile!!!",
+                cmnd: "Please input your personal ID!!!",
+                email: "Please input your email again!!!",
+                address: "Please input your address!!!",
+            }
+        });
+    });
+    $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },
+        "Please check your input."
+    );
+</script>
+
+</html>
