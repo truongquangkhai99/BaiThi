@@ -95,7 +95,7 @@
                             <div class="col-9">
                                 <input class="form-control" type="date"
                                        name="dob" id="dob"
-                                       data-rule-required=true required>
+                                       data-rule-required=true>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -410,7 +410,7 @@
     $(document).ready(function () {
         employees.intTable();
         offices.initTags();
-        $('#formDemo').validate({
+        $('#formAddEdit').validate({
             rules: {
                 name: {
                     required: true,
